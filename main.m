@@ -1,17 +1,21 @@
 #!/bin/env octave
 
-n = 2^13
+rand ("seed", 42)
+n = 2^13;
 L = 2 * pi;
 h = L/n;
 x = (0:n-1)*h;
-dt  = 0.0001;
+dt  = 0.00001;
 mu = 0.001;
 k = [0:n/2-1 0 -n/2+1:-1];
 k1 = 1i*k;
 k2 = k1.^2;
 kf = 8 * pi;
-				# uinit = cos(x.*x/3) / 2;
-uinit = 1 - ((x - pi)/(pi)).^2;
+
+U = 1/sqrt(3) * (2 * pi)^(1/4) * k .^2 .* exp(-k.^2 / 4);
+a =  fft(randn(1, n));
+uinit = ifft(U .* a) * 8;
+
 uinit = center(uinit);
 u0 = uinit;
 E0 = sumsq(u0) * h;
@@ -25,9 +29,7 @@ for t = 0:dt:2000
     u1hat = fft(u0) + 0.5*dt*(-k1.*fft(u0.^2)/2 + mu*k2.*fft(u0) + force);
     u1 = ifft(u1hat);
     u2hat = fft(u0) + dt*(-k1.*fft(u1.^2)/2 + mu*k2.*fft(u1) + force);
-    u0 = ifft(u2hat);
-
-    if mod(q, 1000) == 0
+    if mod(q, 10000) == 0
       plot(x, uinit, 'linewidth', 2, x, u0, 'linewidth', 5)
       axis([0,2*pi,-1, 1])
       title(sprintf('%12.1f', t))
@@ -35,5 +37,6 @@ for t = 0:dt:2000
       printf('%.16e\n', E);
       pause(0.01);
     end
+    u0 = ifft(u2hat);
     q += 1;
 end
