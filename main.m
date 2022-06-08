@@ -1,6 +1,6 @@
 #!/bin/env octave
 
-n = 2^13;
+n = 2^13
 L = 2 * pi;
 h = L/n;
 x = (0:n-1)*h;
@@ -10,7 +10,8 @@ k = [0:n/2-1 0 -n/2+1:-1];
 k1 = 1i*k;
 k2 = k1.^2;
 kf = 8 * pi;
-uinit = cos(x.*x/3) / 2;
+				# uinit = cos(x.*x/3) / 2;
+uinit = 1 - ((x - pi)/(pi)).^2;
 uinit = center(uinit);
 u0 = uinit;
 E0 = sumsq(u0) * h;
@@ -20,7 +21,7 @@ for t = 0:dt:2000
     E = sumsq(u0) * h;
     force = fft(u0);
     force(abs(k) > kf) = 0;
-    force = 0 * force .* (E0 - E);
+    force = 10 * force .* (E0 - E);
     u1hat = fft(u0) + 0.5*dt*(-k1.*fft(u0.^2)/2 + mu*k2.*fft(u0) + force);
     u1 = ifft(u1hat);
     u2hat = fft(u0) + dt*(-k1.*fft(u1.^2)/2 + mu*k2.*fft(u1) + force);
