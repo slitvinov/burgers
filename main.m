@@ -17,7 +17,7 @@ a =  fft(randn(1, n));
 uinit = ifft(U .* a);
 uinit = 0.8 * uinit / max(abs(uinit));
 u0 = uinit;
-E0 = sumsq(u0) * h
+E0 = sumsq(u0) * h;
 
 q = 0;
 figure('visible', 'off');
