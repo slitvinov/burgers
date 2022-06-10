@@ -2,7 +2,7 @@
 
 graphics_toolkit('gnuplot');
 randn('state', 1);
-n = 2^13;
+n = 2^11;
 L = 2 * pi;
 h = L/n;
 x = (0:n-1)*h;
@@ -23,7 +23,7 @@ figure('visible', 'off');
 for t = 0:dt:2000
     E = sumsq(u0) * h;
     force = fft(u0);
-    force(abs(k) >= 4) = 0;
+    force(~(abs(k) <= 4)) = 0;
     force .*= (E0 - E) / dt;
     rhs = @(u) (-k1.*fft(u0.^2)/2 + mu*k2.*fft(u0) + force);
     u1hat = fft(u0) + 0.5*dt*rhs(u0);
