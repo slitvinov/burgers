@@ -36,9 +36,9 @@ for t = 0:dt:2000
       uf = ifft(uf);
       force = ifft(force);
       force /= max(abs(force));
-      plot(x, u0, 'color', 'black', 'linewidth', 4,
-	   x, uf, 'color', 'black', 'linewidth', 1,
-           x, force, 'color', 'black', 'linewidth', 1)
+      plot(x, u0, 'color', 'black', 'linewidth', 8,
+	   x, uf, 'color', 'black', 'linewidth', 2,
+           x, force, 'color', 'black', 'linewidth', 2)
       axis([0,2*pi,-1, 1])
       title(sprintf('%12.2f', t))
       saveas(gcf(), sprintf('u.%09d.png', q))
