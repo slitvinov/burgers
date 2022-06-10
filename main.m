@@ -1,5 +1,6 @@
 #!/bin/env octave
 
+graphics_toolkit('gnuplot');
 randn('state', 1);
 n = 2^13;
 L = 2 * pi;
@@ -40,7 +41,7 @@ for t = 0:dt:2000
            x, force, 'color', 'black', 'linewidth', 1)
       axis([0,2*pi,-1, 1])
       title(sprintf('%12.2f', t))
-      saveas(gcf(), sprintf('u.%09d.ppm', q))
+      saveas(gcf(), sprintf('u.%09d.png', q))
       printf('%.16e\n', E);
     end
     q += 1;
