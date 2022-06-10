@@ -40,7 +40,7 @@ for t = 0:dt:2000
            x, force, 'color', 'black', 'linewidth', 1)
       axis([0,2*pi,-1, 1])
       title(sprintf('%12.2f', t))
-      saveas(gcf(), sprintf('u.%09d.png', q))
+      saveas(gcf(), sprintf('u.%09d.eps', q))
       printf('%.16e\n', E);
     end
     q += 1;
