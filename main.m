@@ -23,7 +23,7 @@ figure('visible', 'off');
 for t = 0:dt:2000
     E = sumsq(u0) * h;
     force = fft(u0);
-    force(abs(k) >= 3) = 0;
+    force(abs(k) >= 4) = 0;
     force .*= (E0 - E) / dt;
     rhs = @(u) (-k1.*fft(u0.^2)/2 + mu*k2.*fft(u0) + force);
     u1hat = fft(u0) + 0.5*dt*rhs(u0);
