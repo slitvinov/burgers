@@ -2,16 +2,14 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-mu = 0.001
-
-N = 2**10
+N = 2**6
 L = 2 * math.pi
 h = L / N
 x = [h*e for e in range(1, N + 1)]
 c = [0.2 + math.sin(e-1)**2 for e in x]
 dt = h / 4
 
-tmax = 80
+tmax = 8
 tplot = 0.15
 plotgap = round(tplot/dt)
 dt = tplot/plotgap
@@ -19,14 +17,15 @@ nplots = round(tmax/tplot)
 
 v = [math.exp(-100*(e-1)**2) for e in x]
 vold = [math.exp(-100*(e-0.2*dt-1)**2) for e in x]
-vold = v.copy()
 
 k = list(range(N//2 + 1))
 k1 = [1j*e for e in k]; k1[-1] = 0
 k2 = [-e**2 for e in k]
 
 t = 0
-l, = plt.plot(x, v)
+l, = plt.plot(x, v, 'o-')
+plt.xlim([0, 2*math.pi])
+plt.ylim([-0.2, 1.2])
 for i in range(nplots):
     for n in range(plotgap):
         t += dt
