@@ -20,7 +20,7 @@ E0 = sumsq(u0) * h;
 En = zeros(size(k));
 q = 0;
 figure('visible', 'off');
-for t = 0:dt:2000
+for t = 0:dt:200000
     E = sumsq(u0) * h;
     force = fft(u0);
     force(~(abs(k) <= 4)) = 0;
